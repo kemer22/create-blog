@@ -1,0 +1,27 @@
+<?php
+// Connexion à la base de données
+$bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'utilisateur', 'motdepasse');
+
+// Récupération des articles
+$articles = $bdd->query('SELECT * FROM articles ORDER BY date DESC');
+
+// Affichage des articles
+foreach ($articles as $article) {
+    echo '<div class="article">';
+    echo '<h2>' . $article['titre'] . '</h2>';
+    echo '<p class="date">' . $article['date'] . '</p>';
+    echo '<p class="contenu">' . $article['contenu'] . '</p>';
+    echo '</div>';
+}
+?>
+
+<!-- Formulaire de création d'article -->
+<form method="post" action="creer_article.php">
+    <label for="titre">Titre :</label>
+    <input type="text" name="titre" id="titre">
+    <br>
+    <label for="contenu">Contenu :</label>
+    <textarea name="contenu" id="contenu"></textarea>
+    <br>
+    <input type="submit" value="Publier">
+</form>
